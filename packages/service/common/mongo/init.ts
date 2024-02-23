@@ -17,6 +17,10 @@ export async function connectMongo({
 
   beforeHook && (await beforeHook());
 
+  function delay(ms: number) {
+    return new Promise((resolve) => setTimeout(resolve, ms));
+  }
+
   console.log('mongo start connect');
   try {
     mongoose.set('strictQuery', true);
@@ -33,6 +37,8 @@ export async function connectMongo({
       retryWrites: true,
       retryReads: true
     });
+
+    await delay(1000);
 
     console.log('mongo connected');
 
