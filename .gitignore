@@ -42,6 +42,7 @@ docSite/.vercel
 .idea/
 
 
-files/deploy/fastgpt/mongodb.key
 files/deploy/fastgpt/mongo/data/
 files/deploy/fastgpt/pg/data/
+files/deploy/fastgpt/mongo/keyfile
+files/deploy/fastgpt/oneapi/logs/
