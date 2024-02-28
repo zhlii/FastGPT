@@ -1,12 +1,8 @@
 import React, { useMemo } from 'react';
 import { Box, BoxProps, Flex, Link, LinkProps } from '@chakra-ui/react';
 import { useRouter } from 'next/router';
-import { useUserStore } from '@/web/support/user/useUserStore';
-import { useChatStore } from '@/web/core/chat/storeChat';
-import { HUMAN_ICON } from '@fastgpt/global/common/system/constants';
 import NextLink from 'next/link';
 import Badge from '../Badge';
-import Avatar from '../Avatar';
 import MyIcon from '@fastgpt/web/components/common/Icon';
 import { useTranslation } from 'next-i18next';
 import { useSystemStore } from '@/web/common/system/useSystemStore';
@@ -21,18 +17,9 @@ export enum NavbarTypeEnum {
 const Navbar = ({ unread }: { unread: number }) => {
   const { t } = useTranslation();
   const router = useRouter();
-  const { userInfo } = useUserStore();
   const { gitStar, feConfigs } = useSystemStore();
-  const { lastChatAppId, lastChatId } = useChatStore();
   const navbarList = useMemo(
     () => [
-      {
-        label: t('navbar.Chat'),
-        icon: 'core/chat/chatLight',
-        activeIcon: 'core/chat/chatFill',
-        link: `/chat?appId=${lastChatAppId}&chatId=${lastChatId}`,
-        activeLink: ['/chat']
-      },
       {
         label: t('navbar.Apps'),
         icon: 'core/app/aiLight',
@@ -62,7 +49,7 @@ const Navbar = ({ unread }: { unread: number }) => {
         activeLink: ['/account']
       }
     ],
-    [lastChatAppId, lastChatId, t]
+    [t]
   );
 
   const itemStyles: BoxProps & LinkProps = {
@@ -92,18 +79,6 @@ const Navbar = ({ unread }: { unread: number }) => {
       w={'100%'}
       userSelect={'none'}
     >
-      {/* logo */}
-      <Box
-        flex={'0 0 auto'}
-        mb={5}
-        border={'2px solid #fff'}
-        borderRadius={'50%'}
-        overflow={'hidden'}
-        cursor={'pointer'}
-        onClick={() => router.push('/account')}
-      >
-        <Avatar w={'36px'} h={'36px'} src={userInfo?.avatar} fallbackSrc={HUMAN_ICON} />
-      </Box>
       {/* 导航列表 */}
       <Box flex={1}>
         {navbarList.map((item) => (

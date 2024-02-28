@@ -41,8 +41,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 
 const defaultFeConfigs: FastGPTFeConfigsType = {
   show_emptyChat: true,
-  show_git: true,
-  docUrl: 'https://doc.fastgpt.in',
+  show_git: false,
   openAPIDocUrl: 'https://doc.fastgpt.in/docs/development/openapi',
   systemTitle: 'FastGPT',
   concatMd:
@@ -109,8 +108,8 @@ export async function initSystemConfig() {
   const config: FastGPTConfigFileType = {
     feConfigs: {
       ...defaultFeConfigs,
-      ...(dbConfig.feConfigs || {}),
-      isPlus: !!FastGPTProUrl
+      ...(fileRes.feConfigs || {}),
+      isPlus: true
     },
     systemEnv: {
       ...fileRes.systemEnv,
